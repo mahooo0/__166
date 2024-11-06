@@ -4,13 +4,17 @@ import CountriesSlider from '../components/CountriesSlider';
 import Partner_swipper from '../components/PartnersSlider/index';
 import Services_swipper from '../components/Services_swipper';
 import Avtoparck_swipper from '../components/AvtoParck_swipper';
+import Rewiues_swipper from '../components/Rewiues_swipper';
+import Rewiues_Section from '../components/Rewiues_swipper';
+import DinamicMap from '../components/DinamicMap';
+import { Footer } from '../components/Footer';
 // import CountriesSlider from '../components/PartnersSwipper';
 
 export default function Home() {
     return (
         <div>
             <Header />
-            <section className="mt-9 ">
+            <section className="mt-9 CountriesSwippenSection">
                 <h1
                     data-layername="pesəkarKomandamizVəInnovativHəllərimizIləYukDasimalariniziDahaSurətliVəEffektivSəkildəHəyataKeciririk"
                     className="lg:px-[100px] md:px-[60px] px-[30px] pb-[30px] text-5xl font-bold text-black max-w-[1119px] max-md:max-w-full lg:text-4xl md:text-4xl text-[32px]"
@@ -133,7 +137,7 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-            <section className="mt-[67px]">
+            <section className="mt-[67px] CountriesSwippenSection">
                 <Partner_swipper />
             </section>
             <section className="mt-[120px]">
@@ -279,6 +283,52 @@ export default function Home() {
                     </div>
                 </div>
             </section>
+            <Rewiues_Section />
+            <section className="mt-[120px] lg:block hidden ">
+                <div className="flex flex-wrap gap-10 justify-start items-end  mb-[30px] ">
+                    <h2 className="text-5xl font-semibold text-blue-950 max-md:text-4xl px-[100px] mb-[100px]">
+                        Fəaliyyət göstərdiyimiz ölkələr{' '}
+                    </h2>
+                    <DinamicMap />
+                </div>
+            </section>
+            <section className="mt-[120px] lg:px-[100px] md:px-[60px] px-[30px]">
+                {' '}
+                <div
+                    className="flex overflow-hidden flex-col items-start px-14 py-8 font-semibold text-white rounded-lg bg-black bg-opacity-30 max-md:px-5"
+                    style={{
+                        backgroundImage:
+                            'url("https://s3-alpha-sig.figma.com/img/62f4/77d2/beada38f22d5ab00ca39ebf60e0e1c89?Expires=1731888000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=BHvxi9vketc3Bd34f~SLLc6YRZ5eAV8JKeipT9zH7rU3wQLhTVhwtungQ-~6w3CtF~CeFRU0W7uFfPwUoeeCLBAYu7Nggb6HIk6g6QOG9zMOhAkRe8eHfUw~184bzqJPuQwmSUjGoxSnzogWE6bJ7UzkBnsCS6ETxDksSWP5F~FZ~we1Xgk2-N39ZsfN8JwiyMY7E~azlAAbGJDkVwSg4XHJ1ttPfnKp1AKZeJZhIAEpHvxLz~rRRMGA6ulyutEJtUM1wbmBdqpzo4RNEnEGUKGAA0zkQCSPPwG0zG1B~SW~BGS4d2X6DfCy6-xgEp~Z3saYDzFYO5EgKnagVQB3Pw__")',
+                        backgroundSize: 'cover',
+                        height: '100%', // Set height as needed
+                        width: '100%', // Set width as needed
+                    }}
+                >
+                    <div className="text-sm text-neutral-100">
+                        03.08.25-ə qədər
+                    </div>
+                    <div className="mt-6 text-4xl w-[644px] max-md:max-w-full">
+                        Hər həftə sonları bütün xidmətlərimizə 15% endirim
+                        tətbiq olunur
+                    </div>
+                    <div className="mt-3 text-base font-medium w-[860px] max-md:max-w-full">
+                        Bütün  xidmətlərimizdə 15%-dək endirimdən yararlanın.
+                        Sürətli və təhlükəsiz daşınma ilə yükləriniz zamanında
+                        təyinat nöqtəsinə çatdırılsın.
+                    </div>
+                    <div className="flex flex-col justify-center items-center px-4 py-3 mt-7 max-w-full text-lg text-white whitespace-nowrap bg-amber-300 rounded-lg min-h-[45px] w-[155px]">
+                        <div className="flex gap-1.5 justify-center items-center">
+                            <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/c6f3c7bb740649e5a32c147b3037a1c2/051a12f446a5e365013bb14a67ea029d11ffdd1ede89920cc4e5a623c73f612b?apiKey=c6f3c7bb740649e5a32c147b3037a1c2&"
+                                className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square"
+                            />
+                            <div className="self-stretch my-auto">166</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <Footer />
         </div>
     );
 }

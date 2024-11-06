@@ -16,3 +16,9 @@
 .animate-marquee {
     animation: marquee 10s linear infinite; /* Adjust the duration as needed */
 }
+.swiper-container {
+    transition-timing-function: linear !important;
+}
+.CountriesSwippenSection .swiper .swiper-wrapper {
+    transition-timing-function: linear !important;
+}

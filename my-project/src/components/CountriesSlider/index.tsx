@@ -10,15 +10,13 @@ const CountriesSlider: React.FC = () => {
             spaceBetween={20}
             slidesPerView={'auto'}
             freeMode={true}
-            // cssMode={true} // Enable CSS mode for smooth scrolling
             autoplay={{
                 delay: 0, // Continuous scrolling
                 disableOnInteraction: false,
             }}
-            speed={10000} // Set a longer speed for smoother transitions
+            speed={5000} // Set a longer speed for smoother transitions
             loop={true}
             onSlideChange={() => {
-                // Allow continuous autoplay
                 if (Swiper.autoplay) {
                     Swiper.autoplay.start();
                 }

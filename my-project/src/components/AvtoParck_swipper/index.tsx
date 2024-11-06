@@ -9,7 +9,7 @@ import 'swiper/css'; // Import basic Swiper styles
 export default function Avtoparck_swipper() {
     return (
         <Swiper
-            className="lg:!pl-[100px] md:!pl-[60px] !pl-[30px]"
+            className="lg:!pl-[100px] md:!pl-[60px] !pl-[30px] !py-[20px]  "
             // Add the Navigation module
             spaceBetween={24} // Spacing between slides
             slidesPerView={'auto'} // Number of slides to show
