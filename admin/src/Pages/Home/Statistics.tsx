@@ -19,12 +19,12 @@ import DeleteModal from '../../components/DeleteModal';
 import Loading from '../../components/Loading';
 import { useQuery } from '@tanstack/react-query';
 import {
-    DeleteServices,
+    DeleteStatistick,
     GetServicesText,
     GetStatistick,
-    PostServices,
-    PutServices,
+    PostStatistick,
     PutServicesText,
+    PutStatistick,
 } from '../../Services/Rerquests';
 import { toast } from 'react-toastify';
 
@@ -247,14 +247,14 @@ export default function Statistics() {
                     if (CurrentService) {
                         // console.log('update');
                         try {
-                            await PutServices(values, CurrentService._id);
+                            await PutStatistick(values, CurrentService._id);
                             setREfetch((prew) => !prew);
                             toast.success('updated');
                         } catch (error) {}
                     } else {
                         // console.log('add');
                         try {
-                            await PostServices(values);
+                            await PostStatistick(values);
                             toast.success('aded');
                             setREfetch((prew) => !prew);
                         } catch (error) {
@@ -269,7 +269,7 @@ export default function Statistics() {
                 onClose={() => setDeliteOpen(false)}
                 onConfirm={async () => {
                     try {
-                        await DeleteServices(CurrentService._id);
+                        await DeleteStatistick(CurrentService._id);
                         toast.success('deleted');
                         setREfetch((prew) => !prew);
                     } catch (error) {

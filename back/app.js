@@ -27,6 +27,7 @@ const StatisticsRouter = require('./routes/StatisticsRouter.js');
 const PartnersRouter = require('./routes/Partners.js');
 const ServicesCategoryRouter = require('./routes/ServicesCategoryRouter.js');
 const ServicesRouter = require('./routes/ServicesRouter');
+const ServicesAdvantegesRouter = require('./routes/ServiceAdvantegesRouter.js');
 const LoginRouter = require('./routes/Login');
 const TranslationRouter = require('./routes/translationRouter');
 const AvtoparkCategoryRouter = require('./routes/AvtoparkCountryRouter.js');
@@ -34,6 +35,13 @@ const AvtoparkRouter = require('./routes/AvtoparckRouter.js');
 const MediaRouter = require('./routes/mediaRouter.js');
 const HomeDiscountBanner = require('./routes/HomeDiscountBanner.js');
 const AboutHeroRoter = require('./routes/AboutusHeroRouter.js');
+const AboutAdvanteges = require('./routes/AboutusAdvantegesRouter.js');
+const RewiueRouter = require('./routes/RewiueRouter.js');
+const HowWeWorckRouter = require('./routes/HowWeWorckRouter.js');
+const TeamRotuer = require('./routes/TeamRouter.js');
+const GaleryRotuer = require('./routes/GaleryRouter.js');
+const ContactCategoryRotuer = require('./routes/ContactCategoryRouter.js');
+const contactRouter = require('./routes/contact');
 
 //use routes
 app.use('/api/home/hero/title', HomeHeroTitleRoutes);
@@ -43,13 +51,21 @@ app.use('/api/statisticks/', StatisticsRouter);
 app.use('/api/partners', PartnersRouter);
 app.use('/api/services/services-categories', ServicesCategoryRouter);
 app.use('/api/services', ServicesRouter);
+app.use('/api/services/advanteges', ServicesAdvantegesRouter);
 app.use('/api/translations', TranslationRouter);
 app.use('/api/avtopark/categories', AvtoparkCategoryRouter);
 app.use('/api/avtopark', AvtoparkRouter);
 app.use('/api/media', MediaRouter);
 app.use('/api/home/discount-banner', HomeDiscountBanner);
 app.use('/login', LoginRouter);
-app.use('/about', AboutHeroRoter);
+app.use('/api/aboutHero', AboutHeroRoter);
+app.use('/api/about/Advanteges', AboutAdvanteges);
+app.use('/api/about/HowWeWorck', HowWeWorckRouter);
+app.use('/api/rewiues', RewiueRouter);
+app.use('/api/team', TeamRotuer);
+app.use('/api/team', TeamRotuer);
+app.use('/api/contact-categories', ContactCategoryRotuer);
+app.use('/api/contact', contactRouter);
 
 // Connect to MongoDB
 mongoose

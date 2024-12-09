@@ -4,35 +4,45 @@ import CustomModal from '../../components/Custom/Madal';
 import CustomTabel from '../../components/Custom/Tabel';
 import { useQuery } from '@tanstack/react-query';
 import {
-    DeleteServicesCategory,
+    GetServices,
     GetServicesCategoryes,
-    PostServicesCategory,
-    PutServicesCategory,
+    PostServices,
 } from '../../Services/Rerquests';
 import Loading from '../../components/Loading';
 import { toast } from 'react-toastify';
 import DeleteModal from '../../components/DeleteModal';
+import { useRecoilState } from 'recoil';
+import { languageState } from '../../assets/States/mainAtom';
 
-export default function Services() {
+export default function ServicesCategory() {
     const [isOpen, setIsOpen] = React.useState(false);
     const [deleteisOpen, setdeleteIsOpen] = React.useState(false);
     const [REfetch, setREfetch] = React.useState(false);
     const [currentdata, setcurrentdata] = useState<any>(undefined);
+    const [language, setLanguage] = useRecoilState(languageState);
 
-    const [data, setData] = useState([
-        {
-            _id: '1',
-            title: 'Item 1',
-            description: 'Description 1',
-            value: '100',
-        },
-        {
-            _id: '2',
-            title: 'Item 2',
-            description: 'Description 2',
-            value: '200',
-        },
-    ]);
+    // const [data, setData] = useState([
+    //     {
+    //         _id: '1',
+    //         title: 'Item 1',
+    //         description: 'Description 1',
+    //         value: '100',
+    //     },
+    //     {
+    //         _id: '2',
+    //         title: 'Item 2',
+    //         description: 'Description 2',
+    //         value: '200',
+    //     },
+    // ]);
+    const {
+        data: Services,
+        error: ServicesEror,
+        isLoading: ServicesLoafing,
+    } = useQuery({
+        queryKey: ['Services', REfetch],
+        queryFn: GetServices,
+    });
     const {
         data: ServicesCategory,
         error: ServicesCategoryEror,
@@ -41,9 +51,9 @@ export default function Services() {
         queryKey: ['ServicesCategory', REfetch],
         queryFn: GetServicesCategoryes,
     });
-    if (ServicesCategoryLoafing) return <Loading />;
-    if (ServicesCategoryEror) {
-        console.log('error:', ServicesCategoryEror);
+    if (ServicesLoafing || ServicesCategoryLoafing) return <Loading />;
+    if (ServicesEror || ServicesCategoryEror) {
+        console.log('error:', ServicesEror);
 
         return <h1>error go to log</h1>;
     }
@@ -53,12 +63,18 @@ export default function Services() {
     };
 
     const handleEdit = (item: any) => {
-        console.log('Editing item:', item);
+        console.log(
+            'Editing item:',
+            Services.find((service: any) => service._id === item.id)
+        );
         // Logic for editing item
-        setcurrentdata(item);
+
+        setcurrentdata(
+            Services.find((service: any) => service._id === item.id)
+        );
         handleOpen();
     };
-    console.log('currentdata:', currentdata?.Name_az);
+    console.log('Services:', Services);
 
     const handleDelete = (item: any) => {
         // setData(data.filter((d: any) => d._id !== item._id));
@@ -72,20 +88,20 @@ export default function Services() {
     };
 
     const handleSubmit = async (data: any) => {
-        console.log('Form Data:', data);
-        // console.log(currentdata);
-        // Handle image file upload as needed
+        const icon = data.icon;
+        console.log('icon:', icon);
+
         if (currentdata) {
             console.log('currentdata', currentdata);
 
             try {
-                await PutServicesCategory(currentdata.id, {
-                    name: {
-                        az: data.Name_az,
-                        en: data.Name_en,
-                        ru: data.Name_ru,
-                    },
-                });
+                // await PutServicesCategory(currentdata.id, {
+                //     name: {
+                //         az: data.Name_az,
+                //         en: data.Name_en,
+                //         ru: data.Name_ru,
+                //     },
+                // });
                 toast.success('updated');
                 setREfetch((prew) => !prew);
             } catch (error) {
@@ -93,16 +109,30 @@ export default function Services() {
             }
         } else {
             try {
-                await PostServicesCategory({
-                    name: {
-                        az: data.Name_az,
-                        en: data.Name_en,
-                        ru: data.Name_ru,
-                    },
-                });
+                console.log('DATA:::', data);
+                const BodyForum = new FormData();
+                BodyForum.append('titleAz', data.title_az);
+                BodyForum.append('titleEn', data.title_en);
+                BodyForum.append('titleRu', data.title_ru);
+                BodyForum.append('descAz', data.desc_az);
+                BodyForum.append('descEn', data.desc_en);
+                BodyForum.append('descRu', data.desc_ru);
+                BodyForum.append('descShortAz', data.desc_short_az);
+                BodyForum.append('descShortEn', data.desc_short_en);
+                BodyForum.append('descShortRu', data.desc_short_ru);
+                BodyForum.append('category_id', data.Category);
+                BodyForum.append('icon', icon); // here is needto be a file
+                console.log('BodyForum content:');
+                for (const pair of BodyForum.entries()) {
+                    console.log(`${pair[0]}: `, pair[1]);
+                }
+
+                await PostServices(BodyForum);
                 toast.success('added');
                 setREfetch((prew) => !prew);
             } catch (error) {
+                console.log(error);
+
                 toast.error('something went wrong log for more');
             }
         }
@@ -112,36 +142,72 @@ export default function Services() {
             {' '}
             <Box p={2}>
                 <CustomTabel
-                    Title="Dynamic Table"
-                    Table_Head_Data={['ID', 'Name Az', 'Name Ru', 'Name En']}
-                    Table_Body_Data={ServicesCategory.map((item: any) => {
+                    Title="Services"
+                    Table_Head_Data={[
+                        'id',
+                        'Title',
+                        'Short description',
+                        'description',
+                        'icon',
+                        'category id',
+                    ]}
+                    Table_Body_Data={Services.map((item: any) => {
                         return {
                             id: item._id,
-                            Name_az: item.name.az,
-                            Name_ru: item.name.ru,
-                            Name_en: item.name.en,
+                            title: item.title[language],
+                            desc_short: item.desc_short[language],
+                            desc: item.desc[language],
+                            icon: 'http://localhost:5000' + item.icon, //img url
+                            category_id: item.category_id,
+
+                            // Name_az: item.name.az,
+                            // Name_ru: item.name.ru,
+                            // Name_en: item.name.en,
                         };
                     })}
                     onAdd={handleAdd}
                     onEdit={handleEdit}
                     onDelete={handleDelete}
                 />
-                <CustomModal
+                {/* <CustomModal
                     open={isOpen}
                     onClose={handleClose}
                     title="Create Data"
                     fields={[
-                        { name: 'Name_az', type: 'text' },
-                        { name: 'Name_ru', type: 'text' },
-                        { name: 'Name_en', type: 'text' },
+                        {
+                            name: 'Category',
+                            type: 'select',
+                            options: ServicesCategory.map((item: any) => {
+                                return {
+                                    value: item._id,
+                                    label: item.name[language],
+                                };
+                            }),
+                            // [
+                            //     { value: 'tech', label: 'Technology' },
+                            //     { value: 'science', label: 'Science' },
+                            //     { value: 'art', label: 'Art' },
+                            // ],
+                        },
+
+                        { name: 'title_az', type: 'text' },
+                        { name: 'title_ru', type: 'text' },
+                        { name: 'title_en', type: 'text' },
+                        { name: 'desc_short_az', type: 'text' },
+                        { name: 'desc_short_ru', type: 'text' },
+                        { name: 'desc_short_en', type: 'text' },
+                        { name: 'desc_az', type: 'quill' },
+                        { name: 'desc_ru', type: 'quill' },
+                        { name: 'desc_en', type: 'quill' },
+                        { name: 'icon', type: 'image' },
                         // { name: 'Description', type: 'quill' },
                         // { name: 'Image', type: 'image' },
                         // { name: 'Additional Images', type: 'multiple-images' },
                     ]}
                     defaultValues={{
-                        Name_az: currentdata?.Name_az,
-                        Name_ru: currentdata?.Name_ru,
-                        Name_en: currentdata?.Name_en,
+                        title_az: currentdata?.title_az,
+                        title_ru: currentdata?.title_ru,
+                        title_en: currentdata?.title_en,
                         // Title: 'Sample Title',
                         // Description: 'This is a default description.',
                         // Image: {
@@ -160,7 +226,8 @@ export default function Services() {
                         // ],
                     }}
                     onSubmit={handleSubmit}
-                />
+                />{' '} */}
+                {/*
                 <DeleteModal
                     open={deleteisOpen}
                     onClose={() => {
@@ -169,7 +236,7 @@ export default function Services() {
                     }}
                     onConfirm={async () => {
                         try {
-                            await DeleteServicesCategory(currentdata.id);
+                            // await DeleteServicesCategory(currentdata.id);
                             toast.success('deleted');
                             setdeleteIsOpen(false);
 
@@ -178,7 +245,7 @@ export default function Services() {
                             toast.error('something went wrong log for more');
                         }
                     }}
-                />
+                /> */}
             </Box>
         </div>
     );

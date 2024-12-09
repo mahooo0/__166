@@ -33,7 +33,7 @@ const CustomTabel = ({
 }: Propps) => {
     return (
         <div>
-            <Typography variant="h3" className="mt-10">
+            <Typography variant="h3" className="mt-10 !mb-5">
                 {Title}
             </Typography>
             <TableContainer component={Paper}>
@@ -60,7 +60,22 @@ const CustomTabel = ({
                         {Table_Body_Data.map((item, index) => (
                             <TableRow key={index}>
                                 {Object.keys(item).map((key, idx) => (
-                                    <TableCell key={idx}>{item[key]}</TableCell>
+                                    <TableCell key={idx}>
+                                        {(key === 'icon' || key === 'image') &&
+                                        item[key] ? (
+                                            <img
+                                                src={item[key]} // Image URL
+                                                alt="icon"
+                                                style={{
+                                                    width: 50,
+                                                    height: 50,
+                                                    objectFit: 'contain',
+                                                }}
+                                            />
+                                        ) : (
+                                            item[key]
+                                        )}
+                                    </TableCell>
                                 ))}
                                 <TableCell>
                                     {onEdit && (
@@ -68,7 +83,7 @@ const CustomTabel = ({
                                             variant="contained"
                                             color="info"
                                             onClick={() => onEdit(item)}
-                                            sx={{ Margin: '8px' }}
+                                            sx={{ margin: '8px' }}
                                         >
                                             <Edit />
                                         </Button>

@@ -1,217 +1,111 @@
-import React, { useState } from 'react';
-import Header from '../components/Header';
-import Aside from '../components/Aside';
+import { Box, Card, Container, Grid, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import DashboardLayout from '@/components/layouts/DashboardLayout';
 import {
-    Box,
-    Container,
-    Typography,
-    Paper,
-    Grid,
-    Card,
-    CardContent,
-    Button,
-} from '@mui/material';
+    People as PeopleIcon,
+    ShoppingCart as ShoppingCartIcon,
+    AttachMoney as AttachMoneyIcon,
+    Assessment as AssessmentIcon,
+} from '@mui/icons-material';
 
-export default function Dashboard() {
-    const [asideOpen, setAsideOpen] = useState(false);
+const StyledCard = styled(Card)(({ theme }) => ({
+    padding: theme.spacing(3),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+}));
 
-    const toggleAside = () => {
-        setAsideOpen(!asideOpen);
-    };
-
+const Dashboard = () => {
     return (
-        <div className="p-0">
-            {/* Header Component */}
-            <Header onMenuClick={toggleAside} />
+        <DashboardLayout>
+            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                <Typography variant="h4" sx={{ mb: 4 }}>
+                    Панель управления
+                </Typography>
 
-            {/* Aside (Sidebar) Component */}
-            <Aside open={asideOpen} onClose={toggleAside} />
+                <Grid container spacing={3}>
+                    {/* Статистические карточки */}
+                    <Grid item xs={12} sm={6} md={3}>
+                        <StyledCard>
+                            <Box>
+                                <Typography
+                                    color="textSecondary"
+                                    variant="subtitle2"
+                                >
+                                    Пользователи
+                                </Typography>
+                                <Typography variant="h4">1,234</Typography>
+                            </Box>
+                            <PeopleIcon
+                                sx={{ fontSize: 40, color: 'primary.main' }}
+                            />
+                        </StyledCard>
+                    </Grid>
 
-            <Box display="flex" flexDirection="row" padding={3} flexGrow={1}>
-                {/* Sidebar space */}
-                {/* <Box width={250} /> */}
-                {/* Dashboard Grid Content */}
-                <Grid container spacing={3} sx={{ flexGrow: 1 }}>
-                    {/* Card 1 */}
-                    <Grid item xs={12} md={4}>
-                        <Card>
-                            <CardContent>
-                                <Typography variant="h6" gutterBottom>
-                                    Total Revenue
-                                </Typography>
-                                <Typography variant="h4" color="primary">
-                                    $12,500
-                                </Typography>
-                                <Button
-                                    variant="outlined"
-                                    size="small"
-                                    sx={{ mt: 2 }}
+                    <Grid item xs={12} sm={6} md={3}>
+                        <StyledCard>
+                            <Box>
+                                <Typography
+                                    color="textSecondary"
+                                    variant="subtitle2"
                                 >
-                                    View Details
-                                </Button>
-                            </CardContent>
-                        </Card>
+                                    Заказы
+                                </Typography>
+                                <Typography variant="h4">456</Typography>
+                            </Box>
+                            <ShoppingCartIcon
+                                sx={{ fontSize: 40, color: 'secondary.main' }}
+                            />
+                        </StyledCard>
                     </Grid>
-                    {/* Card 2 */}
-                    <Grid item xs={12} md={4}>
-                        <Card>
-                            <CardContent>
-                                <Typography variant="h6" gutterBottom>
-                                    Orders
-                                </Typography>
-                                <Typography variant="h4" color="primary">
-                                    450
-                                </Typography>
-                                <Button
-                                    variant="outlined"
-                                    size="small"
-                                    sx={{ mt: 2 }}
+
+                    <Grid item xs={12} sm={6} md={3}>
+                        <StyledCard>
+                            <Box>
+                                <Typography
+                                    color="textSecondary"
+                                    variant="subtitle2"
                                 >
-                                    View Orders
-                                </Button>
-                            </CardContent>
-                        </Card>
+                                    Доход
+                                </Typography>
+                                <Typography variant="h4">$5,678</Typography>
+                            </Box>
+                            <AttachMoneyIcon
+                                sx={{ fontSize: 40, color: 'success.main' }}
+                            />
+                        </StyledCard>
                     </Grid>
-                    {/* Card 3 */}
-                    <Grid item xs={12} md={4}>
-                        <Card>
-                            <CardContent>
-                                <Typography variant="h6" gutterBottom>
-                                    New Customers
-                                </Typography>
-                                <Typography variant="h4" color="primary">
-                                    34
-                                </Typography>
-                                <Button
-                                    variant="outlined"
-                                    size="small"
-                                    sx={{ mt: 2 }}
+
+                    <Grid item xs={12} sm={6} md={3}>
+                        <StyledCard>
+                            <Box>
+                                <Typography
+                                    color="textSecondary"
+                                    variant="subtitle2"
                                 >
-                                    View Customers
-                                </Button>
-                            </CardContent>
-                        </Card>
-                    </Grid>{' '}
-                    <Grid item xs={12} md={4}>
-                        <Card>
-                            <CardContent>
-                                <Typography variant="h6" gutterBottom>
-                                    Total Revenue
+                                    Конверсия
                                 </Typography>
-                                <Typography variant="h4" color="primary">
-                                    $12,500
-                                </Typography>
-                                <Button
-                                    variant="outlined"
-                                    size="small"
-                                    sx={{ mt: 2 }}
-                                >
-                                    View Details
-                                </Button>
-                            </CardContent>
-                        </Card>
+                                <Typography variant="h4">12%</Typography>
+                            </Box>
+                            <AssessmentIcon
+                                sx={{ fontSize: 40, color: 'warning.main' }}
+                            />
+                        </StyledCard>
                     </Grid>
-                    {/* Card 2 */}
-                    <Grid item xs={12} md={4}>
-                        <Card>
-                            <CardContent>
-                                <Typography variant="h6" gutterBottom>
-                                    Orders
-                                </Typography>
-                                <Typography variant="h4" color="primary">
-                                    450
-                                </Typography>
-                                <Button
-                                    variant="outlined"
-                                    size="small"
-                                    sx={{ mt: 2 }}
-                                >
-                                    View Orders
-                                </Button>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    {/* Card 3 */}
-                    <Grid item xs={12} md={4}>
-                        <Card>
-                            <CardContent>
-                                <Typography variant="h6" gutterBottom>
-                                    New Customers
-                                </Typography>
-                                <Typography variant="h4" color="primary">
-                                    34
-                                </Typography>
-                                <Button
-                                    variant="outlined"
-                                    size="small"
-                                    sx={{ mt: 2 }}
-                                >
-                                    View Customers
-                                </Button>
-                            </CardContent>
-                        </Card>
-                    </Grid>{' '}
-                    <Grid item xs={12} md={4}>
-                        <Card>
-                            <CardContent>
-                                <Typography variant="h6" gutterBottom>
-                                    Total Revenue
-                                </Typography>
-                                <Typography variant="h4" color="primary">
-                                    $12,500
-                                </Typography>
-                                <Button
-                                    variant="outlined"
-                                    size="small"
-                                    sx={{ mt: 2 }}
-                                >
-                                    View Details
-                                </Button>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    {/* Card 2 */}
-                    <Grid item xs={12} md={4}>
-                        <Card>
-                            <CardContent>
-                                <Typography variant="h6" gutterBottom>
-                                    Orders
-                                </Typography>
-                                <Typography variant="h4" color="primary">
-                                    450
-                                </Typography>
-                                <Button
-                                    variant="outlined"
-                                    size="small"
-                                    sx={{ mt: 2 }}
-                                >
-                                    View Orders
-                                </Button>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    {/* Card 3 */}
-                    <Grid item xs={12} md={4}>
-                        <Card>
-                            <CardContent>
-                                <Typography variant="h6" gutterBottom>
-                                    New Customers
-                                </Typography>
-                                <Typography variant="h4" color="primary">
-                                    34
-                                </Typography>
-                                <Button
-                                    variant="outlined"
-                                    size="small"
-                                    sx={{ mt: 2 }}
-                                >
-                                    View Customers
-                                </Button>
-                            </CardContent>
+
+                    {/* Основной контент */}
+                    <Grid item xs={12}>
+                        <Card sx={{ p: 3 }}>
+                            <Typography variant="h6" sx={{ mb: 2 }}>
+                                Последние действия
+                            </Typography>
+                            {/* Здесь можно добавить таблицу или список действий */}
                         </Card>
                     </Grid>
                 </Grid>
-            </Box>
-        </div>
+            </Container>
+        </DashboardLayout>
     );
-}
+};
+
+export default Dashboard;

@@ -76,26 +76,26 @@ export const PutServicesText = async (body: any) => {
     );
     return data;
 };
-//Services
+//Statistick
 export const GetStatistick = async () => {
     const { data } = await axios.get('http://localhost:5000/api/statisticks');
     return data;
 };
-export const PostServices = async (body: any) => {
+export const PostStatistick = async (body: any) => {
     const { data } = await axios.post(
         'http://localhost:5000/api/statisticks',
         body
     );
     return data;
 };
-export const PutServices = async (body: any, id: string) => {
+export const PutStatistick = async (body: any, id: string) => {
     const { data } = await axios.put(
         'http://localhost:5000/api/statisticks/' + id,
         body
     );
     return data;
 };
-export const DeleteServices = async (id: string) => {
+export const DeleteStatistick = async (id: string) => {
     const { data } = await axios.delete(
         'http://localhost:5000/api/statisticks/' + id
     );
@@ -137,20 +137,8 @@ export const DeletePartner = async (id: string) => {
     );
     return data;
 };
-// export const PutServices = async (body: any, id: string) => {
-//     const { data } = await axios.put(
-//         'http://localhost:5000/api/statisticks/' + id,
-//         body
-//     );
-//     return data;
-// };
-// export const DeleteServices = async (id: string) => {
-//     const { data } = await axios.delete(
-//         'http://localhost:5000/api/statisticks/' + id
-//     );
-//     return data;
-// };
-//Partners
+
+//services category
 export const GetServicesCategoryes = async () => {
     const { data } = await axios.get(
         'http://localhost:5000/api/services/services-categories'
@@ -182,6 +170,39 @@ export const PutServicesCategory = async (
 export const DeleteServicesCategory = async (id: string) => {
     const { data } = await axios.delete(
         `http://localhost:5000/api/services/services-categories/${id}`
+    );
+    return data;
+};
+//services
+export const GetServices = async () => {
+    const { data } = await axios.get('http://localhost:5000/api/services');
+    return data;
+};
+export const PostServices = async (body: any) => {
+    const { data } = await axios.post(
+        'http://localhost:5000/api/services/',
+        body
+    );
+    return data;
+};
+export const PutServices = async (
+    id: string, // ID of the Cantry to update
+    body: any
+) => {
+    try {
+        const { data } = await axios.put(
+            `http://localhost:5000/api/services/${id}`, // Use PUT method with the Cantry ID
+            body
+        );
+        return data;
+    } catch (error) {
+        console.error('Error updating Partner:', error);
+        throw error; // Re-throw the error to handle it in the caller
+    }
+};
+export const DeleteServices = async (id: string) => {
+    const { data } = await axios.delete(
+        `http://localhost:5000/api/services/${id}`
     );
     return data;
 };

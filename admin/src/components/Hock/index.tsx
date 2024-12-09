@@ -17,8 +17,17 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import { Button, Collapse } from '@mui/material';
+import {
+    Button,
+    Collapse,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { languageState } from '../../assets/States/mainAtom';
 
 const drawerWidth = 240;
 
@@ -30,6 +39,37 @@ interface Props {
     children: ReactNode;
     window?: () => Window;
 }
+const LanguageSelect = () => {
+    const [language, setLanguage] = useRecoilState(languageState);
+
+    // const [language, setLanguage] = useState<'az' | 'en' | 'ru'>('en'); // Default language
+
+    const handleChange = (event: any) => {
+        setLanguage(event.target.value);
+        console.log(`Language changed to: ${event.target.value}`); // Replace this with your logic
+    };
+
+    return (
+        <FormControl
+            className="!fixed top-2 right-2 bg-white"
+            variant="outlined"
+            size="small"
+            sx={{ minWidth: 120 }}
+        >
+            <InputLabel id="language-select-label">Language</InputLabel>
+            <Select
+                labelId="language-select-label"
+                value={language}
+                onChange={handleChange}
+                label="Language"
+            >
+                <MenuItem value="en">English</MenuItem>
+                <MenuItem value="az">Azerbaijani</MenuItem>
+                <MenuItem value="ru">Russian</MenuItem>
+            </Select>
+        </FormControl>
+    );
+};
 
 export function ResponsiveDrawer(props: Props) {
     const { window, children } = props;
@@ -51,6 +91,7 @@ export function ResponsiveDrawer(props: Props) {
         }
     };
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [dropdownOpen2, setDropdownOpen2] = useState(false);
 
     const handleDropdownClick = () => {
         setDropdownOpen(!dropdownOpen);
@@ -129,6 +170,51 @@ export function ResponsiveDrawer(props: Props) {
                     </List>
                 </Collapse> */}
             </List>
+            <List>
+                <Button className="w-full" variant="text">
+                    <ListItem
+                        component="li"
+                        onClick={() => setDropdownOpen2(!dropdownOpen2)}
+                    >
+                        <ListItemText primary="SErvices" />
+                        {dropdownOpen ? <ExpandLess /> : <ExpandMore />}
+                    </ListItem>
+                </Button>
+
+                <Collapse
+                    in={dropdownOpen2}
+                    timeout="auto"
+                    unmountOnExit
+                    className="w-full"
+                >
+                    <List component="div" disablePadding>
+                        <ListItem component="li" sx={{ pl: 4 }}>
+                            <Link to={'/ServicesCategory'} className="w-full">
+                                <ListItemText
+                                    primary="Services Category"
+                                    className="w-full"
+                                />
+                            </Link>
+                        </ListItem>
+                        <ListItem component="li" sx={{ pl: 4 }}>
+                            <Link to={'/Services'} className="w-full">
+                                <ListItemText
+                                    primary="Services"
+                                    className="w-full"
+                                />
+                            </Link>
+                        </ListItem>
+                        <ListItem component="li" sx={{ pl: 4 }}>
+                            <Link to={'/home/partners'} className="w-full">
+                                <ListItemText
+                                    primary="Partners"
+                                    className="w-full"
+                                />
+                            </Link>
+                        </ListItem>
+                    </List>
+                </Collapse>
+            </List>
             <Divider />
             <List>
                 {['All mail', 'Trash', 'Spam'].map((text, index) => (
@@ -199,6 +285,7 @@ export function ResponsiveDrawer(props: Props) {
                 </Drawer>
             </Box>
             <Box
+                className="relative"
                 component="main"
                 sx={{
                     flexGrow: 1,
@@ -206,7 +293,7 @@ export function ResponsiveDrawer(props: Props) {
                     width: { sm: `calc(100% - ${drawerWidth}px)` },
                 }}
             >
-                {children}{' '}
+                {children} <LanguageSelect />
             </Box>
         </Box>
     );

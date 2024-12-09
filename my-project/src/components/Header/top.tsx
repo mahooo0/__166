@@ -36,7 +36,11 @@ const socialIcons = [
     },
 ];
 
-const TopBar: React.FC = () => {
+const TopBar = ({
+    setpaymentmodasl,
+}: {
+    setpaymentmodasl: (par: boolean) => void;
+}) => {
     const [customerType, setCustomerType] =
         useState<CustomerType>('individual');
     const [selectedLanguage, setSelectedLanguage] = useState<Language>(
@@ -91,7 +95,10 @@ const TopBar: React.FC = () => {
                 </div>
             </div>
             <div className="flex gap-10 items-end self-stretch my-auto text-sm min-w-[240px]">
-                <div className="flex gap-1.5 items-center font-medium text-black">
+                <button
+                    className="flex gap-1.5 items-center font-medium text-black"
+                    onClick={() => setpaymentmodasl(true)}
+                >
                     <img
                         loading="lazy"
                         src="https://cdn.builder.io/api/v1/image/assets/c6f3c7bb740649e5a32c147b3037a1c2/58d125d4330d21fe4cffca74e6471256e97b08993d99e0ee703ab9fc4683c505?apiKey=c6f3c7bb740649e5a32c147b3037a1c2&"
@@ -99,7 +106,7 @@ const TopBar: React.FC = () => {
                         className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square"
                     />
                     <div className="self-stretch my-auto">Onlayn ödəniş</div>
-                </div>
+                </button>
                 <div className="relative flex flex-col leading-none text-black whitespace-nowrap w-[70px]">
                     <button
                         className="flex gap-1.5 justify-center items-center"

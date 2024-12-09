@@ -10,7 +10,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Statistics from './Pages/Home/Statistics';
 import Partners from './Pages/Home/Partners';
+import ServicesCategory from './Pages/Home/ServicesCategory';
 import Services from './Pages/Home/Services';
+import { RecoilRoot } from 'recoil';
+// import Dashboard from './Pages/DashBord';
+import Dashboard from './Pages/admin/dashboard';
+
 // Create a client for React Query
 const queryClient = new QueryClient();
 
@@ -21,54 +26,64 @@ const App: React.FC = () => {
     };
 
     return (
-        <Router>
-            <QueryClientProvider client={queryClient}>
-                <Routes>
-                    <Route path="/" element={<Login />} />
-                    <Route
-                        path="/dashbord"
-                        element={
-                            <Layout>
-                                <DashBord />
-                            </Layout>
-                        }
-                    />
-                    <Route
-                        path="/home/hero"
-                        element={
-                            <Layout>
-                                <Home_Hero />
-                            </Layout>
-                        }
-                    />
-                    <Route
-                        path="/home/statistics"
-                        element={
-                            <Layout>
-                                <Statistics />
-                            </Layout>
-                        }
-                    />
-                    <Route
-                        path="/home/partners"
-                        element={
-                            <Layout>
-                                <Partners />
-                            </Layout>
-                        }
-                    />
-                    <Route
-                        path="/Services"
-                        element={
-                            <Layout>
-                                <Services />
-                            </Layout>
-                        }
-                    />
-                </Routes>
-            </QueryClientProvider>
-            <ToastContainer />
-        </Router>
+        <RecoilRoot>
+            <Router>
+                <QueryClientProvider client={queryClient}>
+                    <Routes>
+                        <Route path="/" element={<Login />} />
+                        <Route
+                            path="/dashbord"
+                            element={
+                                <Layout>
+                                    <Dashboard />
+                                </Layout>
+                            }
+                        />
+                        <Route
+                            path="/home/hero"
+                            element={
+                                <Layout>
+                                    <Home_Hero />
+                                </Layout>
+                            }
+                        />
+                        <Route
+                            path="/home/statistics"
+                            element={
+                                <Layout>
+                                    <Statistics />
+                                </Layout>
+                            }
+                        />
+                        <Route
+                            path="/home/partners"
+                            element={
+                                <Layout>
+                                    <Partners />
+                                </Layout>
+                            }
+                        />
+                        <Route
+                            path="/ServicesCategory"
+                            element={
+                                <Layout>
+                                    <ServicesCategory />
+                                </Layout>
+                            }
+                        />
+                        <Route
+                            path="/Services"
+                            element={
+                                <Layout>
+                                    <Services />
+                                </Layout>
+                            }
+                        />
+                    </Routes>
+                </QueryClientProvider>
+                <ToastContainer />
+            </Router>
+        </RecoilRoot>
     );
 };
 

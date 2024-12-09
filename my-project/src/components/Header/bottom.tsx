@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 interface NavItemProps {
     label: string;
@@ -41,7 +42,11 @@ const NavItem: React.FC<NavItemProps> = ({ label, hasDropdown = false }) => {
 
 interface NavbarProps {}
 
-const Navbar: React.FC<NavbarProps> = () => {
+const Navbar = ({
+    setcontactmodasl,
+}: {
+    setcontactmodasl: (par: boolean) => void;
+}) => {
     return (
         <nav className="flex flex-wrap gap-10 items-center justify-between px-28 py-1.5 w-full bg-white shadow-[0px_2px_4px_rgba(105,105,105,0.12)] max-md:px-5 max-md:max-w-full">
             <img
@@ -71,13 +76,32 @@ const Navbar: React.FC<NavbarProps> = () => {
                 </div>
                 <div className="flex flex-wrap gap-10 items-center self-stretch my-auto min-w-[240px] max-md:max-w-full">
                     <div className="lg:flex hidden gap-6 items-center self-stretch my-auto text-sm font-medium text-black min-w-[240px] max-md:max-w-full">
-                        <NavItem label="Əsas səhifə" />
-                        <NavItem label="Şirkətimiz" hasDropdown />
-                        <NavItem label="Xidmətlər" hasDropdown />
-                        <NavItem label="Blog" hasDropdown />
-                        <NavItem label="Əlaqə" />
+                        <Link to={'/'}>
+                            {' '}
+                            <NavItem label="Əsas səhifə" />
+                        </Link>
+                        <Link to={'/ourCompany/ebautUs'}>
+                            <NavItem label="Şirkətimiz" hasDropdown />
+                        </Link>
+                        <Link to={'/services'}>
+                            <NavItem label="Xidmətlər" hasDropdown />
+                        </Link>
+                        <Link to={'/ourCompany/blog'}>
+                            <NavItem label="Blog" hasDropdown />
+                        </Link>
+                        <Link to={'/contact'}>
+                            {' '}
+                            <NavItem label="Əlaqə" />
+                        </Link>
+                        <Link to={'/global'}>
+                            {' '}
+                            <NavItem label="Global" />
+                        </Link>
                     </div>
-                    <div className="flex gap-2.5 items-center self-stretch px-2.5 py-1.5 my-auto text-base font-semibold text-white bg-amber-300 rounded-lg min-h-[36px]">
+                    <button
+                        className="flex gap-2.5 items-center self-stretch px-2.5 py-1.5 my-auto text-base font-semibold text-white bg-amber-300 rounded-lg min-h-[36px]"
+                        onClick={() => setcontactmodasl(true)}
+                    >
                         <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/c6f3c7bb740649e5a32c147b3037a1c2/efa8b1340653e8c024486e1e9748984b4e4c8b0ccc4d3fdc68e77508aaf56fe0?apiKey=c6f3c7bb740649e5a32c147b3037a1c2&"
@@ -85,7 +109,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                             className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square"
                         />
                         <div className="self-stretch my-auto">Book a call</div>
-                    </div>
+                    </button>
                 </div>
             </div>
         </nav>
